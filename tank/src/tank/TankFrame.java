@@ -6,6 +6,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import tank.util.Dir;
 
 public class TankFrame extends Frame {
 
@@ -15,6 +16,8 @@ public class TankFrame extends Frame {
 	private static final long serialVersionUID = 1L;
 
 	int x = 200, y = 200;
+	private static final int SPEED = 10;
+	Dir dir = Dir.DOWN;
 
 	public TankFrame() {
 		setSize(800, 600);// 窗体的大小
@@ -37,15 +40,31 @@ public class TankFrame extends Frame {
 	@Override
 	public void paint(Graphics g) {
 		g.fillRect(x, y, 50, 50);
+		switch (dir) {
+		case LEFT:
+			x -= SPEED;
+			break;
+		case UP:
+			y -= SPEED;
+			break;
+		case RIGHT:
+			x += SPEED;
+			break;
+		case DOWN:
+			y += SPEED;
+			break;
+		default:
+			break;
+		}
 	}
 
 	class MyKeyListener extends KeyAdapter {
-
+// 四个值表示按键的状态
 		boolean bL = false;
 		boolean bR = false;
 		boolean bU = false;
 		boolean bD = false;
-		
+
 		@Override
 		public void keyPressed(KeyEvent e) {
 			int key = e.getKeyCode();
@@ -64,6 +83,25 @@ public class TankFrame extends Frame {
 				break;
 			default:
 				break;
+			}
+			setMainTankDir();
+		}
+
+		/**
+		 * 坦克的方向赋值
+		 */
+		private void setMainTankDir() {
+			if (bL) {
+				dir = Dir.LEFT;
+			}
+			if (bU) {
+				dir = Dir.UP;
+			}
+			if (bR) {
+				dir = Dir.RIGHT;
+			}
+			if (bD) {
+				dir = Dir.DOWN;
 			}
 		}
 
@@ -86,6 +124,7 @@ public class TankFrame extends Frame {
 			default:
 				break;
 			}
+			setMainTankDir();
 		}
 
 	}
