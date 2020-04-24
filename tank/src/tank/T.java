@@ -2,16 +2,11 @@ package tank;
 
 public class T {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		// TODO Auto-generated method stub
 		TankFrame frame = new TankFrame();
 		while(true) {
-			try {
-				Thread.sleep(100);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			Thread.sleep(100);
 			frame.repaint();
 		}
 	}
