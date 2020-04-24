@@ -6,6 +6,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
+import tank.dto.TankDto;
 import tank.util.Dir;
 
 public class TankFrame extends Frame {
@@ -15,9 +17,7 @@ public class TankFrame extends Frame {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	int x = 200, y = 200;
-	private static final int SPEED = 10;
-	Dir dir = Dir.DOWN;
+	TankDto myTank = new TankDto(200, 200, Dir.DOWN);
 
 	public TankFrame() {
 		setSize(800, 600);// 窗体的大小
@@ -39,23 +39,7 @@ public class TankFrame extends Frame {
 
 	@Override
 	public void paint(Graphics g) {
-		g.fillRect(x, y, 50, 50);
-		switch (dir) {
-		case LEFT:
-			x -= SPEED;
-			break;
-		case UP:
-			y -= SPEED;
-			break;
-		case RIGHT:
-			x += SPEED;
-			break;
-		case DOWN:
-			y += SPEED;
-			break;
-		default:
-			break;
-		}
+		myTank.paint(g);
 	}
 
 	class MyKeyListener extends KeyAdapter {
@@ -92,16 +76,16 @@ public class TankFrame extends Frame {
 		 */
 		private void setMainTankDir() {
 			if (bL) {
-				dir = Dir.LEFT;
+				myTank.setDir(Dir.LEFT);
 			}
 			if (bU) {
-				dir = Dir.UP;
+				myTank.setDir(Dir.UP);
 			}
 			if (bR) {
-				dir = Dir.RIGHT;
+				myTank.setDir(Dir.RIGHT);
 			}
 			if (bD) {
-				dir = Dir.DOWN;
+				myTank.setDir(Dir.DOWN);
 			}
 		}
 
