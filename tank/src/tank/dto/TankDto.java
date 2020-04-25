@@ -8,6 +8,7 @@ public class TankDto {
 	public static final int SPEED = 10;
 	private int X, Y;
 	private Dir dir = Dir.DOWN;
+	private boolean move = false;
 
 	public TankDto(int x, int y, Dir dir) {
 		super();
@@ -24,6 +25,14 @@ public class TankDto {
 		this.dir = dir;
 	}
 
+	public boolean isMove() {
+		return move;
+	}
+
+	public void setMove(boolean move) {
+		this.move = move;
+	}
+
 	/**
 	 * 坦克构画出自己
 	 * 
@@ -31,6 +40,14 @@ public class TankDto {
 	 */
 	public void paint(Graphics g) {
 		g.fillRect(X, Y, 50, 50);
+		move();
+	}
+
+//判断坦克的移动
+	private void move() {
+		if(!move) {
+			return;
+		}
 		switch (dir) {
 		case LEFT:
 			X -= SPEED;

@@ -6,7 +6,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
 import tank.dto.TankDto;
 import tank.util.Dir;
 
@@ -31,7 +30,6 @@ public class TankFrame extends Frame {
 			// 点击窗体关闭按钮，退出程序
 			@Override
 			public void windowClosing(WindowEvent e) {
-				// TODO Auto-generated method stub
 				System.exit(0);
 			}
 		});
@@ -75,6 +73,12 @@ public class TankFrame extends Frame {
 		 * 坦克的方向赋值
 		 */
 		private void setMainTankDir() {
+			if (!bL && !bU && !bR && !bD) {
+				myTank.setMove(false);
+			} else {
+				myTank.setMove(true);
+			}
+
 			if (bL) {
 				myTank.setDir(Dir.LEFT);
 			}
@@ -87,6 +91,7 @@ public class TankFrame extends Frame {
 			if (bD) {
 				myTank.setDir(Dir.DOWN);
 			}
+
 		}
 
 		@Override
