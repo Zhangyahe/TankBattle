@@ -6,6 +6,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
+import tank.dto.BulletDto;
 import tank.dto.TankDto;
 import tank.util.Dir;
 
@@ -17,7 +19,8 @@ public class TankFrame extends Frame {
 	private static final long serialVersionUID = 1L;
 
 	TankDto myTank = new TankDto(200, 200, Dir.DOWN);
-
+    BulletDto bullet = new BulletDto(300, 300, Dir.DOWN);
+	
 	public TankFrame() {
 		setSize(800, 600);// 窗体的大小
 		setResizable(false);// 是否可以修改大小
@@ -38,6 +41,7 @@ public class TankFrame extends Frame {
 	@Override
 	public void paint(Graphics g) {
 		myTank.paint(g);
+		bullet.paint(g);
 	}
 
 	class MyKeyListener extends KeyAdapter {

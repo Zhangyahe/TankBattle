@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import tank.util.Dir;
 
 public class TankDto {
-	public static final int SPEED = 10;
+	private static final int SPEED = 5;
 	private int X, Y;
 	private Dir dir = Dir.DOWN;
 	private boolean move = false;
