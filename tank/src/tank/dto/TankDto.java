@@ -1,5 +1,6 @@
 package tank.dto;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import tank.util.Dir;
@@ -39,7 +40,10 @@ public class TankDto {
 	 * @param g
 	 */
 	public void paint(Graphics g) {
+		Color c = g.getColor();
+		g.setColor(Color.yellow);
 		g.fillRect(X, Y, 50, 50);
+		g.setColor(c);
 		move();
 	}
 

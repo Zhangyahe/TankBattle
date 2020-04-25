@@ -1,7 +1,9 @@
 package tank;
 
+import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
@@ -13,16 +15,18 @@ import tank.util.Dir;
 
 public class TankFrame extends Frame {
 
+	private final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
 	TankDto myTank = new TankDto(200, 200, Dir.DOWN);
-    BulletDto bullet = new BulletDto(300, 300, Dir.DOWN);
-	
+	BulletDto bullet = new BulletDto(300, 300, Dir.DOWN);
+
 	public TankFrame() {
-		setSize(800, 600);// 窗体的大小
+		setSize(GAME_WIDTH, GAME_HEIGHT);// 窗体的大小
 		setResizable(false);// 是否可以修改大小
 		setVisible(true);
 		setTitle("HelloWorld");
@@ -44,6 +48,38 @@ public class TankFrame extends Frame {
 		bullet.paint(g);
 	}
 
+	Image offScreenImage = null;
+
+	/*
+	 * (非 Javadoc)
+	    * 
+	    * 在系统paint执行之前，截获执行update;
+	    * 双缓冲解决屏幕闪烁问题;将内存中图整个画到显存中显示到屏幕上
+	    * @param g
+	    * @see java.awt.Container#update(java.awt.Graphics)
+	 */
+	@Override
+	public void update(Graphics g) {
+		if (offScreenImage == null) {
+			offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
+		}
+		Graphics gOffScreen = offScreenImage.getGraphics();
+		Color c = gOffScreen.getColor();
+		gOffScreen.setColor(Color.BLACK);
+		gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+		gOffScreen.setColor(c);
+		paint(gOffScreen);
+		g.drawImage(offScreenImage, 0, 0, null);
+	}
+
+	/**
+	 * 
+	 * @ClassName: MyKeyListener
+	 * @Description: 按键实现子类
+	 * @author YaHe
+	 * @date 2020年4月25日
+	 *
+	 */
 	class MyKeyListener extends KeyAdapter {
 // 四个值表示按键的状态
 		boolean bL = false;
@@ -51,6 +87,9 @@ public class TankFrame extends Frame {
 		boolean bU = false;
 		boolean bD = false;
 
+		/**
+		 * 按键按下的操作
+		 */
 		@Override
 		public void keyPressed(KeyEvent e) {
 			int key = e.getKeyCode();
@@ -98,6 +137,9 @@ public class TankFrame extends Frame {
 
 		}
 
+		/**
+		 * 按键抬起的操作
+		 */
 		@Override
 		public void keyReleased(KeyEvent e) {
 			int key = e.getKeyCode();
