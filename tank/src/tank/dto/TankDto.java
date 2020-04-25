@@ -82,7 +82,7 @@ public class TankDto {
 	    */
 	    
 	public void fire() {
-		tf.bullet = new BulletDto(this.X, this.Y, this.dir);
+		tf.bulletList.add((new BulletDto(this.X, this.Y, this.dir)));
 	}
 
 }

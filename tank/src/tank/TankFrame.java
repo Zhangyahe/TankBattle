@@ -8,6 +8,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 import tank.dto.BulletDto;
 import tank.dto.TankDto;
@@ -23,7 +25,9 @@ public class TankFrame extends Frame {
 	private static final long serialVersionUID = 1L;
 
 	TankDto myTank = new TankDto(200, 200, Dir.DOWN, this);
-    public BulletDto bullet = new BulletDto(300, 300, Dir.DOWN);
+//    public BulletDto bullet = new BulletDto(300, 300, Dir.DOWN);
+	// 使用容器存储Bullet
+	public List<BulletDto> bulletList = new ArrayList<BulletDto>(16);
 
 	public TankFrame() {
 		setSize(GAME_WIDTH, GAME_HEIGHT);// 窗体的大小
@@ -45,18 +49,21 @@ public class TankFrame extends Frame {
 	@Override
 	public void paint(Graphics g) {
 		myTank.paint(g);
-		bullet.paint(g);
+		for (int i = 0; i < bulletList.size(); i++) {
+           bulletList.get(i).paint(g);
+		}
 	}
 
 	Image offScreenImage = null;
 
 	/*
 	 * (非 Javadoc)
-	    * 
-	    * 在系统paint执行之前，截获执行update;
-	    * 双缓冲解决屏幕闪烁问题;将内存中图整个画到显存中显示到屏幕上
-	    * @param g
-	    * @see java.awt.Container#update(java.awt.Graphics)
+	 * 
+	 * 在系统paint执行之前，截获执行update; 双缓冲解决屏幕闪烁问题;将内存中图整个画到显存中显示到屏幕上
+	 * 
+	 * @param g
+	 * 
+	 * @see java.awt.Container#update(java.awt.Graphics)
 	 */
 	@Override
 	public void update(Graphics g) {
@@ -159,7 +166,7 @@ public class TankFrame extends Frame {
 			case KeyEvent.VK_CONTROL:
 				myTank.fire();
 				break;
-				
+
 			default:
 				break;
 			}
