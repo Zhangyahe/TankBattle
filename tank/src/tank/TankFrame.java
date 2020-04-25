@@ -22,8 +22,8 @@ public class TankFrame extends Frame {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	TankDto myTank = new TankDto(200, 200, Dir.DOWN);
-	BulletDto bullet = new BulletDto(300, 300, Dir.DOWN);
+	TankDto myTank = new TankDto(200, 200, Dir.DOWN, this);
+    public BulletDto bullet = new BulletDto(300, 300, Dir.DOWN);
 
 	public TankFrame() {
 		setSize(GAME_WIDTH, GAME_HEIGHT);// 窗体的大小
@@ -156,6 +156,10 @@ public class TankFrame extends Frame {
 			case KeyEvent.VK_DOWN:
 				bD = false;
 				break;
+			case KeyEvent.VK_CONTROL:
+				myTank.fire();
+				break;
+				
 			default:
 				break;
 			}

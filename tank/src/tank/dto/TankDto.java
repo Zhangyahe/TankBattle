@@ -3,6 +3,7 @@ package tank.dto;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import tank.TankFrame;
 import tank.util.Dir;
 
 public class TankDto {
@@ -10,12 +11,13 @@ public class TankDto {
 	private int X, Y;
 	private Dir dir = Dir.DOWN;
 	private boolean move = false;
+	private TankFrame tf = null;
 
-	public TankDto(int x, int y, Dir dir) {
-		super();
+	public TankDto(int x, int y, Dir dir,TankFrame tf) {
 		X = x;
 		Y = y;
 		this.dir = dir;
+		this.tf = tf;
 	}
 
 	public Dir getDir() {
@@ -68,6 +70,19 @@ public class TankDto {
 		default:
 			break;
 		}
+	}
+
+	
+	    /**
+	    * @Title: fire
+	    * @Description: 坦克发射子弹
+	    * @param     参数
+	    * @return void    返回类型
+	    * @throws
+	    */
+	    
+	public void fire() {
+		tf.bullet = new BulletDto(this.X, this.Y, this.dir);
 	}
 
 }
