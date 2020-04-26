@@ -17,7 +17,9 @@ import tank.util.Dir;
 
 public class TankFrame extends Frame {
 
-	private final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
+	public static final int GAME_WIDTH = 800;
+
+	public static final int GAME_HEIGHT = 600;
 
 	/**
 	 * 
@@ -48,6 +50,10 @@ public class TankFrame extends Frame {
 
 	@Override
 	public void paint(Graphics g) {
+		Color c = g.getColor();
+		g.setColor(Color.white);
+		g.drawString("子弹的数量" + bulletList.size(), 10, 60);
+		g.setColor(c);
 		myTank.paint(g);
 		for (int i = 0; i < bulletList.size(); i++) {
            bulletList.get(i).paint(g);
