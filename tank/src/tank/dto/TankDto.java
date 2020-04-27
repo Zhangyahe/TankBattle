@@ -3,7 +3,7 @@ package tank.dto;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import tank.TankFrame;
+import tank.frame.TankFrame;
 import tank.util.Dir;
 
 public class TankDto {

@@ -1,4 +1,6 @@
-package tank;
+package tank.testMain;
+
+import tank.frame.TankFrame;
 
 public class T {
 

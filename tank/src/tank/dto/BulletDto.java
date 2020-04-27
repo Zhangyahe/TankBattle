@@ -3,7 +3,7 @@ package tank.dto;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import tank.TankFrame;
+import tank.frame.TankFrame;
 import tank.util.Dir;
 
 public class BulletDto {
@@ -32,6 +32,7 @@ public class BulletDto {
 		}
 		Color c = g.getColor();
 		g.setColor(Color.RED);
+		
 		g.fillOval(X, Y, WIDTH, HEIGHT); // 正方形的内切圆
 		g.setColor(c);
 		move();
