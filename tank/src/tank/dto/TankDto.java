@@ -3,6 +3,7 @@ package tank.dto;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import tank.common.ResourceLoding;
 import tank.frame.TankFrame;
 import tank.util.Dir;
 
@@ -42,10 +43,23 @@ public class TankDto {
 	 * @param g
 	 */
 	public void paint(Graphics g) {
-		Color c = g.getColor();
-		g.setColor(Color.yellow);
-		g.fillRect(X, Y, 50, 50);
-		g.setColor(c);
+		switch (dir) {
+		case LEFT:
+			g.drawImage(ResourceLoding.tankL, X,Y, null);
+			break;
+		case UP:
+			g.drawImage(ResourceLoding.tankU, X,Y, null);
+			break;
+		case RIGHT:
+			g.drawImage(ResourceLoding.tankR, X,Y, null);
+			break;
+		case DOWN:
+			g.drawImage(ResourceLoding.tankD, X,Y, null);
+			break;
+		default:
+			break;
+		}
+	
 		move();
 	}
 
