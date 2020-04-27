@@ -59,7 +59,6 @@ public class TankDto {
 		default:
 			break;
 		}
-	
 		move();
 	}
 

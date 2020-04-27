@@ -3,11 +3,12 @@ package tank.dto;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import tank.common.ResourceLoding;
 import tank.frame.TankFrame;
 import tank.util.Dir;
 
 public class BulletDto {
-	private static final int SPEED = 6;
+	private static final int SPEED = 10;
 	private static int WIDTH = 10, HEIGHT = 10;
 	private int X, Y;
 	private Dir dir;
@@ -30,11 +31,22 @@ public class BulletDto {
 		if(!live) {
 			tf.bulletList.remove(this);
 		}
-		Color c = g.getColor();
-		g.setColor(Color.RED);
-		
-		g.fillOval(X, Y, WIDTH, HEIGHT); // 正方形的内切圆
-		g.setColor(c);
+		switch (dir) {
+		case LEFT:
+			g.drawImage(ResourceLoding.bulletL, X,Y, null);
+			break;
+		case UP:
+			g.drawImage(ResourceLoding.bulletU, X,Y, null);
+			break;
+		case RIGHT:
+			g.drawImage(ResourceLoding.bulletR, X,Y, null);
+			break;
+		case DOWN:
+			g.drawImage(ResourceLoding.bulletD, X,Y, null);
+			break;
+		default:
+			break;
+		}
 		move();
 	}
 
