@@ -14,6 +14,7 @@ import java.util.List;
 import tank.dto.BulletDto;
 import tank.dto.TankDto;
 import tank.util.Dir;
+import tank.util.Group;
 
 public class TankFrame extends Frame {
 
@@ -26,7 +27,7 @@ public class TankFrame extends Frame {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	TankDto myTank = new TankDto(200, 400, Dir.DOWN, this);
+	TankDto myTank = new TankDto(200, 400, Dir.DOWN, this,Group.GOOD);
 //    public BulletDto bullet = new BulletDto(300, 300, Dir.DOWN);
 	// 使用容器存储Bullet
 	public List<BulletDto> bulletList = new ArrayList<BulletDto>(16);

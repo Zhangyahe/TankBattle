@@ -3,6 +3,7 @@ package tank;
 import tank.dto.TankDto;
 import tank.frame.TankFrame;
 import tank.util.Dir;
+import tank.util.Group;
 
 public class T {
 
@@ -11,7 +12,7 @@ public class T {
 		TankFrame frame = new TankFrame();
 //		初始化敌方tanks
 		for(int i = 0 ;i <5 ; i++){
-			frame.tanks.add(new TankDto(50 +i*80, 200, Dir.DOWN, frame));
+			frame.tanks.add(new TankDto(50 +i*80, 200, Dir.DOWN, frame,Group.BAD));
 		}
 		while(true) {
 			Thread.sleep(100);

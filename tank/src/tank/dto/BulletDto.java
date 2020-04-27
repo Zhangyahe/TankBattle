@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import tank.common.ResourceLoding;
 import tank.frame.TankFrame;
 import tank.util.Dir;
+import tank.util.Group;
 
 public class BulletDto {
 	private static final int SPEED = 10;
@@ -15,12 +16,22 @@ public class BulletDto {
 	private Dir dir;
 	private boolean living = true;
 	private TankFrame tf = null;
+	private Group group = Group.BAD;
 	
-	public BulletDto(int x, int y, Dir dir,TankFrame tf) {
+	public BulletDto(int x, int y, Dir dir,TankFrame tf,Group group) {
 		X = x;
 		Y = y;
 		this.dir = dir;
 		this.tf = tf;
+		this.group = group;
+	}
+
+	public Group getGroup() {
+		return group;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
 	}
 
 	/**
@@ -81,6 +92,9 @@ public class BulletDto {
 	    */
 	    
 	public void collideWith(TankDto tankDto) {
+		if(this.group == tankDto.getGroup()) {
+			return;
+		}
 		//判断两个方块是否相交
 		Rectangle rectBullet = new Rectangle(X, Y, WIDTH, HEIGHT);//子弹的矩形
 		Rectangle rectTanks = new Rectangle(tankDto.getX(), tankDto.getY(), TankDto.Width, TankDto.Height);//tanks的矩形
