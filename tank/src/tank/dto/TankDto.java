@@ -9,7 +9,9 @@ import tank.util.Dir;
 
 public class TankDto {
 	private static final int SPEED = 5;
-	private int X, Y;
+	private int X,Y;
+	public static int Width = ResourceLoding.tankD.getWidth();
+	public static int Height = ResourceLoding.tankD.getHeight();
 	private Dir dir = Dir.DOWN;
 	private boolean move = false;
 	private TankFrame tf = null;
@@ -95,7 +97,9 @@ public class TankDto {
 	    */
 	    
 	public void fire() {
-		tf.bulletList.add((new BulletDto(this.X, this.Y, this.dir,this.tf)));
+		int bx = this.X + TankDto.Width/2 - BulletDto.WIDTH/2;
+		int by = this.Y + TankDto.Height/2 - BulletDto.HEIGHT/2;
+		tf.bulletList.add((new BulletDto(bx, by, this.dir,this.tf)));
 	}
 
 }

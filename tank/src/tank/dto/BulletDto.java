@@ -9,7 +9,8 @@ import tank.util.Dir;
 
 public class BulletDto {
 	private static final int SPEED = 10;
-	private static int WIDTH = 10, HEIGHT = 10;
+	public static int WIDTH = ResourceLoding.bulletD.getWidth();
+	public static int HEIGHT = ResourceLoding.bulletD.getHeight();
 	private int X, Y;
 	private Dir dir;
 	private boolean live = true;
