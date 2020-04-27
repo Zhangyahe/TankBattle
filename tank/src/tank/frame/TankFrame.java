@@ -31,6 +31,7 @@ public class TankFrame extends Frame {
 	// 使用容器存储Bullet
 	public List<BulletDto> bulletList = new ArrayList<BulletDto>(16);
 	public List<TankDto> tanks = new ArrayList<TankDto>();
+
 	public TankFrame() {
 		setSize(GAME_WIDTH, GAME_HEIGHT);// 窗体的大小
 		setResizable(false);// 是否可以修改大小
@@ -56,11 +57,17 @@ public class TankFrame extends Frame {
 		g.setColor(c);
 		myTank.paint(g);
 		for (int i = 0; i < bulletList.size(); i++) {
-           bulletList.get(i).paint(g);
+			bulletList.get(i).paint(g);
 		}
-		//画敌人坦克
-		for(int i = 0; i<tanks.size();i++) {
+		// 画敌人坦克
+		for (int i = 0; i < tanks.size(); i++) {
 			tanks.get(i).paint(g);
+		}
+		// 做碰撞检测--子弹是否和坦克碰上了
+		for (int i = 0; i < bulletList.size(); i++) {
+			for (int j = 0; j < tanks.size(); j++) {
+				bulletList.get(i).collideWith(tanks.get(j));
+			}
 		}
 	}
 

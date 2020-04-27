@@ -1,6 +1,5 @@
 package tank.dto;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 import tank.common.ResourceLoding;
@@ -15,6 +14,7 @@ public class TankDto {
 	private Dir dir = Dir.DOWN;
 	private boolean move = false;
 	private TankFrame tf = null;
+	private boolean living = true;
 
 	public TankDto(int x, int y, Dir dir,TankFrame tf) {
 		X = x;
@@ -39,12 +39,31 @@ public class TankDto {
 		this.move = move;
 	}
 
+	public int getX() {
+		return X;
+	}
+
+	public void setX(int x) {
+		X = x;
+	}
+
+	public int getY() {
+		return Y;
+	}
+
+	public void setY(int y) {
+		Y = y;
+	}
+
 	/**
 	 * 坦克构画出自己
 	 * 
 	 * @param g
 	 */
 	public void paint(Graphics g) {
+		if(!living) {
+			return;
+		}
 		switch (dir) {
 		case LEFT:
 			g.drawImage(ResourceLoding.tankL, X,Y, null);
@@ -101,5 +120,19 @@ public class TankDto {
 		int by = this.Y + TankDto.Height/2 - BulletDto.HEIGHT/2;
 		tf.bulletList.add((new BulletDto(bx, by, this.dir,this.tf)));
 	}
+
+		
+		    /**
+		    * @Title: die
+		    * @Description: 
+		    * @param     参数
+		    * @return void    返回类型
+		    * @throws
+		    */
+		    
+		public void die() {
+			
+			
+		}
 
 }
