@@ -12,27 +12,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tank.dto.BulletDto;
+import tank.dto.Explods;
 import tank.dto.TankDto;
 import tank.util.Dir;
 import tank.util.Group;
 
 public class TankFrame extends Frame {
 
-	public static final int GAME_WIDTH = 800;
-
-	public static final int GAME_HEIGHT = 600;
-
 	/**
-	 * 
+	 * @Fields field:field:{todo}(用一句话描述这个变量表示什么)
 	 */
 	private static final long serialVersionUID = 1L;
+	public static final int GAME_WIDTH = 800;
+	public static final int GAME_HEIGHT = 600;
 
-	TankDto myTank = new TankDto(200, 400, Dir.DOWN, this,Group.GOOD);
+	TankDto myTank = new TankDto(200, 400, Dir.DOWN, this, Group.GOOD);
 //    public BulletDto bullet = new BulletDto(300, 300, Dir.DOWN);
 	// 使用容器存储Bullet
 	public List<BulletDto> bulletList = new ArrayList<BulletDto>(16);
 	public List<TankDto> tanks = new ArrayList<TankDto>();
-
+   Explods e = new Explods(100, 100, this);
+	
 	public TankFrame() {
 		setSize(GAME_WIDTH, GAME_HEIGHT);// 窗体的大小
 		setResizable(false);// 是否可以修改大小
@@ -71,6 +71,7 @@ public class TankFrame extends Frame {
 				bulletList.get(i).collideWith(tanks.get(j));
 			}
 		}
+		e.paint(g);
 	}
 
 	Image offScreenImage = null;
