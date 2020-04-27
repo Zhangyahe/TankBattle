@@ -62,7 +62,7 @@ public class TankDto {
 	 */
 	public void paint(Graphics g) {
 		if(!living) {
-			return;
+			tf.tanks.remove(this);
 		}
 		switch (dir) {
 		case LEFT:
@@ -131,8 +131,7 @@ public class TankDto {
 		    */
 		    
 		public void die() {
-			
-			
+			this.living = false;
 		}
 
 }
