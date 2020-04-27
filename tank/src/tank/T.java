@@ -1,4 +1,4 @@
-package tank.testMain;
+package tank;
 
 import tank.frame.TankFrame;
 
