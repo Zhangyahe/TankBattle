@@ -77,7 +77,7 @@ public class TankDto {
 		if (!living) {
 			tf.tanks.remove(this);
 		}
-		
+
 		switch (dir) {
 		case LEFT:
 			g.drawImage(this.group == Group.GOOD ? ResourceLoding.goodTankL : ResourceLoding.badTankL, X, Y, null);
@@ -94,7 +94,7 @@ public class TankDto {
 		default:
 			break;
 		}
-		
+
 		move();
 	}
 
@@ -126,7 +126,27 @@ public class TankDto {
 		if (this.group == Group.BAD && random.nextInt(100) > 95) {
 			randomDir();
 		}
+		boundsCheck();
+	}
 
+	/**
+	 * @Title: boundsCheck @Description: 坦克移动边界检测 @param 参数 @return void
+	 *         返回类型 @throws
+	 */
+
+	private void boundsCheck() {
+		if (this.X < 2) {
+			X = 2;
+		}
+		if (this.Y < 28) {
+			Y = 28;
+		}
+		if (this.X > TankFrame.GAME_WIDTH - TankDto.Width - 2) {
+			X = TankFrame.GAME_WIDTH - TankDto.Width - 2;
+		}
+		if (this.Y > TankFrame.GAME_HEIGHT - TankDto.Height - 2) {
+			Y = TankFrame.GAME_HEIGHT - TankDto.Height - 2;
+		}
 	}
 
 	/**
