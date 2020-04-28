@@ -17,13 +17,18 @@ public class BulletDto {
 	private boolean living = true;
 	private TankFrame tf = null;
 	private Group group = Group.BAD;
-
+	Rectangle rect = new Rectangle();
+	
 	public BulletDto(int x, int y, Dir dir, TankFrame tf, Group group) {
 		X = x;
 		Y = y;
 		this.dir = dir;
 		this.tf = tf;
 		this.group = group;
+		rect.x = this.X;
+		rect.y = this.Y;
+		rect.width = WIDTH;
+		rect.height = HEIGHT;
 	}
 
 	public Group getGroup() {
@@ -77,6 +82,10 @@ public class BulletDto {
 			Y += SPEED;
 			break;
 		}
+		//update rect
+		rect.x = this.X;
+		rect.y = this.Y;
+		
 		if (X < 0 || Y < 0 || X > TankFrame.GAME_WIDTH || Y > TankFrame.GAME_HEIGHT) {
 			living = false;
 		}
@@ -92,13 +101,13 @@ public class BulletDto {
 			return;
 		}
 		// 判断两个方块是否相交
-		Rectangle rectBullet = new Rectangle(X, Y, WIDTH, HEIGHT);// 子弹的矩形
-		Rectangle rectTanks = new Rectangle(tankDto.getX(), tankDto.getY(), TankDto.Width, TankDto.Height);// tanks的矩形
-		if (rectBullet.intersects(rectTanks)) {
+//		Rectangle rectBullet = new Rectangle(X, Y, WIDTH, HEIGHT);// 子弹的矩形
+//		Rectangle rectTanks = new Rectangle(tankDto.getX(), tankDto.getY(), TankDto.WIDTH, TankDto.HEIGHT);// tanks的矩形
+		if (rect.intersects(tankDto.rect)) {
 			tankDto.die();
 			this.die();
-			int eX = tankDto.getX() + TankDto.Width / 2 - Explods.WIDTH / 2;
-			int eY = tankDto.getY() + TankDto.Height / 2 - Explods.HEIGHT / 2;
+			int eX = tankDto.getX() + TankDto.WIDTH / 2 - Explods.WIDTH / 2;
+			int eY = tankDto.getY() + TankDto.HEIGHT / 2 - Explods.HEIGHT / 2;
 			tf.explods.add(new Explods(eX, eY, tf));
 		}
 	}

@@ -1,6 +1,7 @@
 package tank.dto;
 
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.Random;
 
 import tank.common.ResourceLoding;
@@ -11,14 +12,15 @@ import tank.util.Group;
 public class TankDto {
 	private static final int SPEED = 3;
 	private int X, Y;
-	public static int Width = ResourceLoding.goodTankD.getWidth();
-	public static int Height = ResourceLoding.goodTankD.getHeight();
+	public static int WIDTH = ResourceLoding.goodTankD.getWidth();
+	public static int HEIGHT = ResourceLoding.goodTankD.getHeight();
 	private Dir dir = Dir.DOWN;
 	private boolean move = true;
 	private TankFrame tf = null;
 	private boolean living = true;
 	private Random random = new Random();
 	private Group group = Group.GOOD;
+	Rectangle rect = new Rectangle();
 
 	public TankDto(int x, int y, Dir dir, TankFrame tf, Group group) {
 		X = x;
@@ -26,6 +28,10 @@ public class TankDto {
 		this.dir = dir;
 		this.tf = tf;
 		this.group = group;
+		rect.x = this.X;
+		rect.y = this.Y;
+		rect.width = WIDTH;
+		rect.height = HEIGHT;
 	}
 
 	public Dir getDir() {
@@ -119,6 +125,9 @@ public class TankDto {
 		default:
 			break;
 		}
+		//update rect
+		rect.x = this.X;
+		rect.y = this.Y;
 		// 敌人坦克打出子弹
 		if (this.group == Group.BAD && random.nextInt(100) > 95) {
 			this.fire();
@@ -141,11 +150,11 @@ public class TankDto {
 		if (this.Y < 28) {
 			Y = 28;
 		}
-		if (this.X > TankFrame.GAME_WIDTH - TankDto.Width - 2) {
-			X = TankFrame.GAME_WIDTH - TankDto.Width - 2;
+		if (this.X > TankFrame.GAME_WIDTH - TankDto.WIDTH - 2) {
+			X = TankFrame.GAME_WIDTH - TankDto.WIDTH - 2;
 		}
-		if (this.Y > TankFrame.GAME_HEIGHT - TankDto.Height - 2) {
-			Y = TankFrame.GAME_HEIGHT - TankDto.Height - 2;
+		if (this.Y > TankFrame.GAME_HEIGHT - TankDto.HEIGHT - 2) {
+			Y = TankFrame.GAME_HEIGHT - TankDto.HEIGHT - 2;
 		}
 	}
 
@@ -162,8 +171,8 @@ public class TankDto {
 	 */
 
 	public void fire() {
-		int bx = this.X + TankDto.Width / 2 - BulletDto.WIDTH / 2;
-		int by = this.Y + TankDto.Height / 2 - BulletDto.HEIGHT / 2;
+		int bx = this.X + TankDto.WIDTH / 2 - BulletDto.WIDTH / 2;
+		int by = this.Y + TankDto.HEIGHT / 2 - BulletDto.HEIGHT / 2;
 		tf.bulletList.add((new BulletDto(bx, by, this.dir, this.tf, this.group)));
 	}
 
