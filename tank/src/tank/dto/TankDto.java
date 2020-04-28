@@ -9,8 +9,8 @@ import tank.util.Dir;
 import tank.util.Group;
 
 public class TankDto {
-	private static final int SPEED = 1;
-	private int X,Y;
+	private static final int SPEED = 3;
+	private int X, Y;
 	public static int Width = ResourceLoding.tankD.getWidth();
 	public static int Height = ResourceLoding.tankD.getHeight();
 	private Dir dir = Dir.DOWN;
@@ -20,7 +20,7 @@ public class TankDto {
 	private Random random = new Random();
 	private Group group = Group.GOOD;
 
-	public TankDto(int x, int y, Dir dir,TankFrame tf,Group group) {
+	public TankDto(int x, int y, Dir dir, TankFrame tf, Group group) {
 		X = x;
 		Y = y;
 		this.dir = dir;
@@ -74,21 +74,21 @@ public class TankDto {
 	 * @param g
 	 */
 	public void paint(Graphics g) {
-		if(!living) {
+		if (!living) {
 			tf.tanks.remove(this);
 		}
 		switch (dir) {
 		case LEFT:
-			g.drawImage(ResourceLoding.tankL, X,Y, null);
+			g.drawImage(ResourceLoding.tankL, X, Y, null);
 			break;
 		case UP:
-			g.drawImage(ResourceLoding.tankU, X,Y, null);
+			g.drawImage(ResourceLoding.tankU, X, Y, null);
 			break;
 		case RIGHT:
-			g.drawImage(ResourceLoding.tankR, X,Y, null);
+			g.drawImage(ResourceLoding.tankR, X, Y, null);
 			break;
 		case DOWN:
-			g.drawImage(ResourceLoding.tankD, X,Y, null);
+			g.drawImage(ResourceLoding.tankD, X, Y, null);
 			break;
 		default:
 			break;
@@ -98,7 +98,7 @@ public class TankDto {
 
 //判断坦克的移动
 	private void move() {
-		if(!move) {
+		if (!move) {
 			return;
 		}
 		switch (dir) {
@@ -117,38 +117,40 @@ public class TankDto {
 		default:
 			break;
 		}
-		//敌人坦克打出子弹
-		if(random.nextInt(10) > 8) {
+		// 敌人坦克打出子弹
+		if (this.group == Group.BAD && random.nextInt(100) > 95) {
 			this.fire();
+			if (this.group == Group.BAD && random.nextInt(100) > 95) {
+				randomDir();
+			}
 		}
+
 	}
 
-	
-	    /**
-	    * @Title: fire
-	    * @Description: 坦克发射子弹
-	    * @param     参数
-	    * @return void    返回类型
-	    * @throws
-	    */
-	    
+	/**
+	 * @Title: randomDir @Description: 敌方坦克随机转方向 @param 参数 @return void 返回类型 @throws
+	 */
+
+	private void randomDir() {
+		this.dir = Dir.values()[random.nextInt(4)];
+	}
+
+	/**
+	 * @Title: fire @Description: 坦克发射子弹 @param 参数 @return void 返回类型 @throws
+	 */
+
 	public void fire() {
-		int bx = this.X + TankDto.Width/2 - BulletDto.WIDTH/2;
-		int by = this.Y + TankDto.Height/2 - BulletDto.HEIGHT/2;
-		tf.bulletList.add((new BulletDto(bx, by, this.dir,this.tf,this.group)));
+		int bx = this.X + TankDto.Width / 2 - BulletDto.WIDTH / 2;
+		int by = this.Y + TankDto.Height / 2 - BulletDto.HEIGHT / 2;
+		tf.bulletList.add((new BulletDto(bx, by, this.dir, this.tf, this.group)));
 	}
 
-		
-		    /**
-		    * @Title: die
-		    * @Description: 
-		    * @param     参数
-		    * @return void    返回类型
-		    * @throws
-		    */
-		    
-		public void die() {
-			this.living = false;
-		}
+	/**
+	 * @Title: die @Description: @param 参数 @return void 返回类型 @throws
+	 */
+
+	public void die() {
+		this.living = false;
+	}
 
 }
