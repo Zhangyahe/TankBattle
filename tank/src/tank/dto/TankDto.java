@@ -11,8 +11,8 @@ import tank.util.Group;
 public class TankDto {
 	private static final int SPEED = 3;
 	private int X, Y;
-	public static int Width = ResourceLoding.tankD.getWidth();
-	public static int Height = ResourceLoding.tankD.getHeight();
+	public static int Width = ResourceLoding.goodTankD.getWidth();
+	public static int Height = ResourceLoding.goodTankD.getHeight();
 	private Dir dir = Dir.DOWN;
 	private boolean move = true;
 	private TankFrame tf = null;
@@ -77,22 +77,24 @@ public class TankDto {
 		if (!living) {
 			tf.tanks.remove(this);
 		}
+		
 		switch (dir) {
 		case LEFT:
-			g.drawImage(ResourceLoding.tankL, X, Y, null);
+			g.drawImage(this.group == Group.GOOD ? ResourceLoding.goodTankL : ResourceLoding.badTankL, X, Y, null);
 			break;
 		case UP:
-			g.drawImage(ResourceLoding.tankU, X, Y, null);
+			g.drawImage(this.group == Group.GOOD ? ResourceLoding.goodTankU : ResourceLoding.badTankU, X, Y, null);
 			break;
 		case RIGHT:
-			g.drawImage(ResourceLoding.tankR, X, Y, null);
+			g.drawImage(this.group == Group.GOOD ? ResourceLoding.goodTankR : ResourceLoding.badTankR, X, Y, null);
 			break;
 		case DOWN:
-			g.drawImage(ResourceLoding.tankD, X, Y, null);
+			g.drawImage(this.group == Group.GOOD ? ResourceLoding.goodTankD : ResourceLoding.badTankD, X, Y, null);
 			break;
 		default:
 			break;
 		}
+		
 		move();
 	}
 
