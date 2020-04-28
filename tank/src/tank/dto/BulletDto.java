@@ -97,7 +97,9 @@ public class BulletDto {
 		if (rectBullet.intersects(rectTanks)) {
 			tankDto.die();
 			this.die();
-			tf.explods.add(new Explods(X, Y, tf));
+			int eX = tankDto.getX() + TankDto.Width / 2 - Explods.WIDTH / 2;
+			int eY = tankDto.getY() + TankDto.Height / 2 - Explods.HEIGHT / 2;
+			tf.explods.add(new Explods(eX, eY, tf));
 		}
 	}
 
