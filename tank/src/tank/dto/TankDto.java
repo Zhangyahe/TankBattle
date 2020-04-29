@@ -10,7 +10,7 @@ import tank.util.Dir;
 import tank.util.Group;
 
 public class TankDto {
-	private static final int SPEED = 3;
+	private static final int SPEED = 6;
 	private int X, Y;
 	public static int WIDTH = ResourceLoding.goodTankD.getWidth();
 	public static int HEIGHT = ResourceLoding.goodTankD.getHeight();
