@@ -23,11 +23,14 @@ import javax.imageio.ImageIO;
  */
 
 public class ResourceLoding {
-	public static BufferedImage goodTankL, goodTankU, goodTankR, goodTankD;
+	public  static BufferedImage goodTankL, goodTankU, goodTankR, goodTankD;
 	public static BufferedImage badTankL, badTankU, badTankR, badTankD;
 	public static BufferedImage bulletL, bulletU, bulletR, bulletD;
 	public static BufferedImage[] explods = new BufferedImage[16];
 
+	private ResourceLoding() {
+	}
+	
 	static {
 		try {
 			goodTankU = ImageIO.read(ResourceLoding.class.getClassLoader().getResourceAsStream("images/GoodTank1.png"));

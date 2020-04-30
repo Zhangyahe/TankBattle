@@ -21,8 +21,11 @@ import java.util.Properties;
  */
 
 public class PropertiesMgr {
-	static Properties props = new Properties();
+	private static final Properties props = new Properties();
 
+	private PropertiesMgr() {
+	}
+	
 	static {
 		try {
 			props.load(PropertiesMgr.class.getClassLoader().getResourceAsStream("config"));
@@ -37,5 +40,12 @@ public class PropertiesMgr {
 			return null;
 		}
 		return props.get(key);
+	}
+	
+	public static Integer getInitTankCount(String key) {
+		if (props == null) {
+			return 0;
+		}
+		return Integer.parseInt((String) props.get(key));
 	}
 }
