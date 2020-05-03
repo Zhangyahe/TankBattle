@@ -29,6 +29,7 @@ public class BulletDto {
 		rect.y = this.Y;
 		rect.width = WIDTH;
 		rect.height = HEIGHT;
+		tf.bulletList.add(this);
 	}
 
 	public Group getGroup() {

@@ -24,7 +24,7 @@ public class PropertiesMgr {
 	private static final Properties props = new Properties();
 
 	private PropertiesMgr() {
-	}
+	}	
 	
 	static {
 		try {
@@ -35,17 +35,18 @@ public class PropertiesMgr {
 		}
 	}
 
-	public static Object get(String key) {
+	public static  Object get(String key) {
 		if (props == null) {
 			return null;
 		}
 		return props.get(key);
 	}
 	
-	public static Integer getInitTankCount(String key) {
+	public static  Integer getInitTankCount(String key) {
 		if (props == null) {
 			return 0;
 		}
 		return Integer.parseInt((String) props.get(key));
 	}
+
 }

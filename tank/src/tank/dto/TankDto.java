@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import java.util.Random;
 
 import tank.common.ResourceLoding;
+import tank.design.strategy.DefaultFireStrategy;
 import tank.frame.TankFrame;
 import tank.util.Dir;
 import tank.util.Group;
@@ -74,6 +75,14 @@ public class TankDto {
 		this.group = group;
 	}
 
+	public TankFrame getTf() {
+		return tf;
+	}
+
+	public void setTf(TankFrame tf) {
+		this.tf = tf;
+	}
+
 	/**
 	 * 坦克构画出自己
 	 * 
@@ -125,7 +134,7 @@ public class TankDto {
 		default:
 			break;
 		}
-		//update rect
+		// update rect
 		rect.x = this.X;
 		rect.y = this.Y;
 		// 敌人坦克打出子弹
@@ -171,9 +180,7 @@ public class TankDto {
 	 */
 
 	public void fire() {
-		int bx = this.X + TankDto.WIDTH / 2 - BulletDto.WIDTH / 2;
-		int by = this.Y + TankDto.HEIGHT / 2 - BulletDto.HEIGHT / 2;
-		tf.bulletList.add((new BulletDto(bx, by, this.dir, this.tf, this.group)));
+		DefaultFireStrategy.getInstance().fire(this);;
 	}
 
 	/**

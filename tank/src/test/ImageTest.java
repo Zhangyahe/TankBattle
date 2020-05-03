@@ -21,5 +21,4 @@ class ImageTest {
 			e.getMessage();
 		}
 	}
-
 }
