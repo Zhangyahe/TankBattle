@@ -38,9 +38,9 @@ public class DefaultFireStrategy implements FireStrategy {
 		int bx = t.getX() + TankDto.WIDTH / 2 - BulletDto.WIDTH / 2;
 		int by = t.getY() + TankDto.HEIGHT / 2 - BulletDto.HEIGHT / 2;
 		new BulletDto(bx, by, t.getDir(), t.getTf(), t.getGroup());
-//		if (t.getGroup() == Group.GOOD) {
-//			
-//		}
+		if (t.getGroup() == Group.GOOD) {
+			new Thread(()-> new Audio("audio/tank_fire.wav").play()).start();
+		}
 	}
 
 }
