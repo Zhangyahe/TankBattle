@@ -48,5 +48,10 @@ public class PropertiesMgr {
 		}
 		return Integer.parseInt((String) props.get(key));
 	}
-
+	public static  String getFireName(String key) {
+		if (props == null) {
+			return null;
+		}
+		return (String) props.get(key);
+	}
 }

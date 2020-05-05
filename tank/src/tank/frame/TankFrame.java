@@ -11,6 +11,7 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import tank.common.PropertiesMgr;
 import tank.dto.BulletDto;
 import tank.dto.Explods;
 import tank.dto.TankDto;
@@ -23,8 +24,8 @@ public class TankFrame extends Frame {
 	 * @Fields field:field:{todo}(用一句话描述这个变量表示什么)
 	 */
 	private static final long serialVersionUID = 1L;
-	public static final int GAME_WIDTH = 800;
-	public static final int GAME_HEIGHT = 600;
+	public static final int GAME_WIDTH = PropertiesMgr.getInitTankCount("gameWidth");
+	public static final int GAME_HEIGHT = PropertiesMgr.getInitTankCount("gameHeight");
 
 	TankDto myTank = new TankDto(200, 400, Dir.DOWN, this, Group.GOOD);
 //    public BulletDto bullet = new BulletDto(300, 300, Dir.DOWN);

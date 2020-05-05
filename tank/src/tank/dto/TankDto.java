@@ -4,14 +4,15 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
 
+import tank.common.PropertiesMgr;
 import tank.common.ResourceLoding;
-import tank.design.strategy.DefaultFireStrategy;
+import tank.design.strategy.FireStrategy;
 import tank.frame.TankFrame;
 import tank.util.Dir;
 import tank.util.Group;
 
 public class TankDto {
-	private static final int SPEED = 6;
+	private static final int SPEED = PropertiesMgr.getInitTankCount("tankSpeed");
 	private int X, Y;
 	public static int WIDTH = ResourceLoding.goodTankD.getWidth();
 	public static int HEIGHT = ResourceLoding.goodTankD.getHeight();
@@ -22,6 +23,7 @@ public class TankDto {
 	private Random random = new Random();
 	private Group group = Group.GOOD;
 	Rectangle rect = new Rectangle();
+	FireStrategy fs;
 
 	public TankDto(int x, int y, Dir dir, TankFrame tf, Group group) {
 		X = x;
@@ -33,6 +35,25 @@ public class TankDto {
 		rect.y = this.Y;
 		rect.width = WIDTH;
 		rect.height = HEIGHT;
+		/**
+		 * 使用配置文件的方式读取
+		 */
+		String fireName = "";
+		if (this.group == Group.GOOD) {
+			fireName = PropertiesMgr.getFireName("goodFire");
+			try {
+				fs = (FireStrategy) Class.forName(fireName).getDeclaredConstructor().newInstance();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			fireName = PropertiesMgr.getFireName("badFire");
+			try {
+				fs = (FireStrategy) Class.forName(fireName).getDeclaredConstructor().newInstance();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public Dir getDir() {
@@ -180,7 +201,16 @@ public class TankDto {
 	 */
 
 	public void fire() {
-		DefaultFireStrategy.getInstance().fire(this);;
+		/**
+		 * 默认的开火方式
+		 */
+//		DefaultFireStrategy.getInstance().fire(this);
+//		if (this.group == Group.GOOD) {
+//			FourDirFireStrategy.getInstance().fire(this);
+//		} else {
+//			DefaultFireStrategy.getInstance().fire(this);
+//		}
+		fs.fire(this);
 	}
 
 	/**

@@ -3,13 +3,14 @@ package tank.dto;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import tank.common.PropertiesMgr;
 import tank.common.ResourceLoding;
 import tank.frame.TankFrame;
 import tank.util.Dir;
 import tank.util.Group;
 
 public class BulletDto {
-	private static final int SPEED = 10;
+	private static final int SPEED = PropertiesMgr.getInitTankCount("bulletSpeed");
 	public static int WIDTH = ResourceLoding.bulletD.getWidth();
 	public static int HEIGHT = ResourceLoding.bulletD.getHeight();
 	private int X, Y;

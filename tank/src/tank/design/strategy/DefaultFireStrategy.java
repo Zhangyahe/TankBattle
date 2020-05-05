@@ -29,16 +29,16 @@ public class DefaultFireStrategy implements FireStrategy {
 	 *
 	 */
 
-	private DefaultFireStrategy() {
-	}
-
-	private static class FireStrategyImpHanlder {
-		private static final DefaultFireStrategy INSTANCE = new DefaultFireStrategy();
-	}
-
-	public static DefaultFireStrategy getInstance() {
-		return FireStrategyImpHanlder.INSTANCE;
-	}
+//	private DefaultFireStrategy() {
+//	}
+//
+//	private static class FireStrategyImpHanlder {
+//		private static final DefaultFireStrategy INSTANCE = new DefaultFireStrategy();
+//	}
+//
+//	public static DefaultFireStrategy getInstance() {
+//		return FireStrategyImpHanlder.INSTANCE;
+//	}
 
 	/*
 	 * (非 Javadoc)

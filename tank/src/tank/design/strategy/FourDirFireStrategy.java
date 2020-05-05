@@ -26,20 +26,20 @@ import tank.util.Group;
 
 public class FourDirFireStrategy implements FireStrategy {
 
-	/**
-	 * 创建一个新的实例 FourDirFireStrategy.
-	 *
-	 */
-	private FourDirFireStrategy() {
-	}
-
-	private static class FourDirFireStrategyHanlder {
-		private static final FourDirFireStrategy INSTANCE = new FourDirFireStrategy();
-	}
-
-	public static FourDirFireStrategy getInstance() {
-		return FourDirFireStrategyHanlder.INSTANCE;
-	}
+//	/**
+//	 * 创建一个新的实例 FourDirFireStrategy.
+//	 *
+//	 */
+//	private FourDirFireStrategy() {
+//	}
+//
+//	private static class FourDirFireStrategyHanlder {
+//		private static final FourDirFireStrategy INSTANCE = new FourDirFireStrategy();
+//	}
+//
+//	public static FourDirFireStrategy getInstance() {
+//		return FourDirFireStrategyHanlder.INSTANCE;
+//	}
 	/*
 	 * (非 Javadoc)
 	 * 

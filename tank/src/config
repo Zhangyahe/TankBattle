@@ -1,2 +1,9 @@
 #init tank count
 initTankCount=10
+tankSpeed=6
+bulletSpeed=10
+gameWidth=1080
+gameHeight=720
+#fireStrategy
+goodFire=tank.design.strategy.FourDirFireStrategy
+badFire=tank.design.strategy.DefaultFireStrategy
