@@ -1,17 +1,19 @@
-package tank.dto;
+package tank.abstractfactory;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import tank.abstractfactory.BaseBullet;
-import tank.abstractfactory.BaseTank;
 import tank.common.PropertiesMgr;
 import tank.common.ResourceLoding;
+import tank.dto.Explods;
+import tank.dto.TankDto;
 import tank.frame.TankFrame;
 import tank.util.Dir;
 import tank.util.Group;
 
-public class BulletDto extends BaseBullet {
+public class RectBullet extends BaseBullet {
 	private static final int SPEED = PropertiesMgr.getInitTankCount("bulletSpeed");
 	public static int WIDTH = ResourceLoding.bulletD.getWidth();
 	public static int HEIGHT = ResourceLoding.bulletD.getHeight();
@@ -22,7 +24,7 @@ public class BulletDto extends BaseBullet {
 	private Group group = Group.BAD;
 	Rectangle rect = new Rectangle();
 
-	public BulletDto(int x, int y, Dir dir, TankFrame tf, Group group) {
+	public RectBullet(int x, int y, Dir dir, TankFrame tf, Group group) {
 		X = x;
 		Y = y;
 		this.dir = dir;
@@ -53,22 +55,11 @@ public class BulletDto extends BaseBullet {
 		if (!living) {
 			tf.bulletList.remove(this);
 		}
-		switch (dir) {
-		case LEFT:
-			g.drawImage(ResourceLoding.bulletL, X, Y, null);
-			break;
-		case UP:
-			g.drawImage(ResourceLoding.bulletU, X, Y, null);
-			break;
-		case RIGHT:
-			g.drawImage(ResourceLoding.bulletR, X, Y, null);
-			break;
-		case DOWN:
-			g.drawImage(ResourceLoding.bulletD, X, Y, null);
-			break;
-		default:
-			break;
-		}
+
+		Color c = g.getColor();
+		g.setColor(Color.YELLOW);
+		g.fillRect(X, Y, 20, 20);
+		g.setColor(c);
 		move();
 	}
 
@@ -120,6 +111,7 @@ public class BulletDto extends BaseBullet {
 	/**
 	 * @Title: die @Description: 子弹消失 @param 参数 @return void 返回类型 @throws
 	 */
+
 	private void die() {
 		this.living = false;
 

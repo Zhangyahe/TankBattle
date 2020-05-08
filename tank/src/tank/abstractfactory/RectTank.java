@@ -1,17 +1,19 @@
-package tank.dto;
+package tank.abstractfactory;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Random;
 
-import tank.abstractfactory.BaseTank;
 import tank.common.Audio;
 import tank.common.PropertiesMgr;
 import tank.common.ResourceLoding;
+import tank.dto.BulletDto;
+import tank.dto.TankDto;
 import tank.frame.TankFrame;
 import tank.util.Dir;
 import tank.util.Group;
 
-public class TankDto extends BaseTank {
+public class RectTank extends BaseTank {
 	private static final int SPEED = PropertiesMgr.getInitTankCount("tankSpeed");
 	private int X, Y;
 	public static int WIDTH = ResourceLoding.goodTankD.getWidth();
@@ -22,9 +24,7 @@ public class TankDto extends BaseTank {
 	private boolean living = true;
 	private Random random = new Random();
 
-//	FireStrategy fs;
-
-	public TankDto(int x, int y, Dir dir, TankFrame tf, Group group) {
+	public RectTank(int x, int y, Dir dir, TankFrame tf, Group group) {
 		X = x;
 		Y = y;
 		this.dir = dir;
@@ -113,24 +113,10 @@ public class TankDto extends BaseTank {
 		if (!living) {
 			tf.tanks.remove(this);
 		}
-
-		switch (dir) {
-		case LEFT:
-			g.drawImage(this.group == Group.GOOD ? ResourceLoding.goodTankL : ResourceLoding.badTankL, X, Y, null);
-			break;
-		case UP:
-			g.drawImage(this.group == Group.GOOD ? ResourceLoding.goodTankU : ResourceLoding.badTankU, X, Y, null);
-			break;
-		case RIGHT:
-			g.drawImage(this.group == Group.GOOD ? ResourceLoding.goodTankR : ResourceLoding.badTankR, X, Y, null);
-			break;
-		case DOWN:
-			g.drawImage(this.group == Group.GOOD ? ResourceLoding.goodTankD : ResourceLoding.badTankD, X, Y, null);
-			break;
-		default:
-			break;
-		}
-
+		Color c = g.getColor();
+		g.setColor(group == Group.GOOD ? Color.RED : Color.BLUE);
+		g.fillRect(X, Y, 40, 40);
+		g.setColor(c);
 		move();
 	}
 
@@ -180,11 +166,11 @@ public class TankDto extends BaseTank {
 		if (this.Y < 28) {
 			Y = 28;
 		}
-		if (this.X > TankFrame.GAME_WIDTH - TankDto.WIDTH - 2) {
-			X = TankFrame.GAME_WIDTH - TankDto.WIDTH - 2;
+		if (this.X > TankFrame.GAME_WIDTH - RectTank.WIDTH - 2) {
+			X = TankFrame.GAME_WIDTH - RectTank.WIDTH - 2;
 		}
-		if (this.Y > TankFrame.GAME_HEIGHT - TankDto.HEIGHT - 2) {
-			Y = TankFrame.GAME_HEIGHT - TankDto.HEIGHT - 2;
+		if (this.Y > TankFrame.GAME_HEIGHT - RectTank.HEIGHT - 2) {
+			Y = TankFrame.GAME_HEIGHT - RectTank.HEIGHT - 2;
 		}
 	}
 
@@ -203,7 +189,8 @@ public class TankDto extends BaseTank {
 	public void fire() {
 		int bx = this.X + TankDto.WIDTH / 2 - BulletDto.WIDTH / 2;
 		int by = this.Y + TankDto.HEIGHT / 2 - BulletDto.HEIGHT / 2;
-		tf.gamefactory.creatBullet(bx, by, dir, this.tf, this.group);
+//		new BulletDto(bx, by, this.dir, this.tf, this.group);
+		tf.gamefactory.creatBullet(bx, by, this.dir, this.tf, this.group);
 		if (this.group == Group.GOOD) {
 			new Thread(() -> new Audio("audio/tank_fire.wav").play()).start();
 		}

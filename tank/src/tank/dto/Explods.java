@@ -2,11 +2,12 @@ package tank.dto;
 
 import java.awt.Graphics;
 
+import tank.abstractfactory.BaseExplode;
 import tank.common.Audio;
 import tank.common.ResourceLoding;
 import tank.frame.TankFrame;
 
-public class Explods {
+public class Explods extends BaseExplode{
 	public static int WIDTH = ResourceLoding.explods[0].getWidth();
 	public static int HEIGHT = ResourceLoding.explods[0].getHeight();
 	private int X, Y;
@@ -25,6 +26,7 @@ public class Explods {
 	 * 
 	 * @param g
 	 */
+	@Override
 	public void paint(Graphics g) {
 		g.drawImage(ResourceLoding.explods[step++], X, Y, null);
 		if (step >= ResourceLoding.explods.length) {

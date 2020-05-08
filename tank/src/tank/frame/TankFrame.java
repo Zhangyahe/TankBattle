@@ -11,9 +11,13 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import tank.abstractfactory.BaseBullet;
+import tank.abstractfactory.BaseExplode;
+import tank.abstractfactory.BaseTank;
+import tank.abstractfactory.DefaultFactory;
+import tank.abstractfactory.GameFactory;
+import tank.abstractfactory.RectFactory;
 import tank.common.PropertiesMgr;
-import tank.dto.BulletDto;
-import tank.dto.Explods;
 import tank.dto.TankDto;
 import tank.util.Dir;
 import tank.util.Group;
@@ -26,13 +30,18 @@ public class TankFrame extends Frame {
 	private static final long serialVersionUID = 1L;
 	public static final int GAME_WIDTH = PropertiesMgr.getInitTankCount("gameWidth");
 	public static final int GAME_HEIGHT = PropertiesMgr.getInitTankCount("gameHeight");
-
+    //初始化工厂
+	public GameFactory gamefactory = new DefaultFactory();
+//	public GameFactory gamefactory = new RectFactory();
+//	public GameFactory gamefactoryBullet = new DefaultFactory();
+	
+	
 	TankDto myTank = new TankDto(200, 400, Dir.DOWN, this, Group.GOOD);
 //    public BulletDto bullet = new BulletDto(300, 300, Dir.DOWN);
 	// 使用容器存储Bullet
-	public List<BulletDto> bulletList = new ArrayList<BulletDto>(16);
-	public List<TankDto> tanks = new ArrayList<TankDto>();
-    public List<Explods> explods = new ArrayList<Explods>();
+	public List<BaseBullet> bulletList = new ArrayList<>();
+	public List<BaseTank> tanks = new ArrayList<>();
+    public List<BaseExplode> explods = new ArrayList<>();
 	
 	public TankFrame() {
 		setSize(GAME_WIDTH, GAME_HEIGHT);// 窗体的大小
@@ -80,15 +89,6 @@ public class TankFrame extends Frame {
 
 	Image offScreenImage = null;
 
-	/*
-	 * (非 Javadoc)
-	 * 
-	 * 在系统paint执行之前，截获执行update; 双缓冲解决屏幕闪烁问题;将内存中图整个画到显存中显示到屏幕上
-	 * 
-	 * @param g
-	 * 
-	 * @see java.awt.Container#update(java.awt.Graphics)
-	 */
 	@Override
 	public void update(Graphics g) {
 		if (offScreenImage == null) {
