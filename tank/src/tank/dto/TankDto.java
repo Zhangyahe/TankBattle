@@ -6,6 +6,7 @@ import java.util.Random;
 
 import tank.common.PropertiesMgr;
 import tank.common.ResourceLoding;
+import tank.design.GameModel;
 import tank.design.strategy.FireStrategy;
 import tank.frame.TankFrame;
 import tank.util.Dir;
@@ -18,18 +19,18 @@ public class TankDto {
 	public static int HEIGHT = ResourceLoding.goodTankD.getHeight();
 	private Dir dir = Dir.DOWN;
 	private boolean move = true;
-	private TankFrame tf = null;
 	private boolean living = true;
 	private Random random = new Random();
 	private Group group = Group.GOOD;
 	Rectangle rect = new Rectangle();
 	FireStrategy fs;
+	GameModel gm = null;
 
-	public TankDto(int x, int y, Dir dir, TankFrame tf, Group group) {
+	public TankDto(int x, int y, Dir dir, GameModel gm, Group group) {
 		X = x;
 		Y = y;
 		this.dir = dir;
-		this.tf = tf;
+		this.gm = gm;
 		this.group = group;
 		rect.x = this.X;
 		rect.y = this.Y;
@@ -96,12 +97,12 @@ public class TankDto {
 		this.group = group;
 	}
 
-	public TankFrame getTf() {
-		return tf;
+	public GameModel getGm() {
+		return gm;
 	}
 
-	public void setTf(TankFrame tf) {
-		this.tf = tf;
+	public void setGm(GameModel gm) {
+		this.gm = gm;
 	}
 
 	/**
@@ -111,7 +112,7 @@ public class TankDto {
 	 */
 	public void paint(Graphics g) {
 		if (!living) {
-			tf.tanks.remove(this);
+			gm.tanks.remove(this);
 		}
 
 		switch (dir) {

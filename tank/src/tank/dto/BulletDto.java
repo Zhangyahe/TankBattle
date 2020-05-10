@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 
 import tank.common.PropertiesMgr;
 import tank.common.ResourceLoding;
+import tank.design.GameModel;
 import tank.frame.TankFrame;
 import tank.util.Dir;
 import tank.util.Group;
@@ -16,21 +17,21 @@ public class BulletDto {
 	private int X, Y;
 	private Dir dir;
 	private boolean living = true;
-	private TankFrame tf = null;
+	private GameModel gm = null;
 	private Group group = Group.BAD;
 	Rectangle rect = new Rectangle();
 	
-	public BulletDto(int x, int y, Dir dir, TankFrame tf, Group group) {
+	public BulletDto(int x, int y, Dir dir,GameModel gm, Group group) {
 		X = x;
 		Y = y;
 		this.dir = dir;
-		this.tf = tf;
+		this.gm = gm;
 		this.group = group;
 		rect.x = this.X;
 		rect.y = this.Y;
 		rect.width = WIDTH;
 		rect.height = HEIGHT;
-		tf.bulletList.add(this);
+		gm.bulletList.add(this);
 	}
 
 	public Group getGroup() {
@@ -48,7 +49,7 @@ public class BulletDto {
 	 */
 	public void paint(Graphics g) {
 		if (!living) {
-			tf.bulletList.remove(this);
+			gm.bulletList.remove(this);
 		}
 		switch (dir) {
 		case LEFT:
@@ -110,7 +111,7 @@ public class BulletDto {
 			this.die();
 			int eX = tankDto.getX() + TankDto.WIDTH / 2 - Explods.WIDTH / 2;
 			int eY = tankDto.getY() + TankDto.HEIGHT / 2 - Explods.HEIGHT / 2;
-			tf.explods.add(new Explods(eX, eY, tf));
+			gm.explods.add(new Explods(eX, eY, gm));
 		}
 	}
 

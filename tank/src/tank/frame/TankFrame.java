@@ -8,31 +8,19 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.List;
 
 import tank.common.PropertiesMgr;
-import tank.dto.BulletDto;
-import tank.dto.Explods;
-import tank.dto.TankDto;
+import tank.design.GameModel;
 import tank.util.Dir;
-import tank.util.Group;
 
 public class TankFrame extends Frame {
 
-	/**
-	 * @Fields field:field:{todo}(用一句话描述这个变量表示什么)
-	 */
+	GameModel gameModel = new GameModel();
+
 	private static final long serialVersionUID = 1L;
 	public static final int GAME_WIDTH = PropertiesMgr.getInitTankCount("gameWidth");
 	public static final int GAME_HEIGHT = PropertiesMgr.getInitTankCount("gameHeight");
 
-	TankDto myTank = new TankDto(200, 400, Dir.DOWN, this, Group.GOOD);
-//    public BulletDto bullet = new BulletDto(300, 300, Dir.DOWN);
-	// 使用容器存储Bullet
-	public List<BulletDto> bulletList = new ArrayList<BulletDto>(16);
-	public List<TankDto> tanks = new ArrayList<TankDto>();
-    public List<Explods> explods = new ArrayList<Explods>();
 	
 	public TankFrame() {
 		setSize(GAME_WIDTH, GAME_HEIGHT);// 窗体的大小
@@ -53,29 +41,7 @@ public class TankFrame extends Frame {
 
 	@Override
 	public void paint(Graphics g) {
-		Color c = g.getColor();
-		g.setColor(Color.white);
-		g.drawString("子弹的数量" + bulletList.size(), 10, 60);
-		g.drawString("敌人的数量" + tanks.size(), 10, 80);
-		g.drawString("爆炸的数量" + explods.size(), 10, 100);
-		g.setColor(c);
-		myTank.paint(g);
-		for (int i = 0; i < bulletList.size(); i++) {
-			bulletList.get(i).paint(g);
-		}
-		for (int i = 0; i < explods.size(); i++) {
-			explods.get(i).paint(g);
-		}
-		// 画敌人坦克
-		for (int i = 0; i < tanks.size(); i++) {
-			tanks.get(i).paint(g);
-		}
-		// 做碰撞检测--子弹是否和坦克碰上了
-		for (int i = 0; i < bulletList.size(); i++) {
-			for (int j = 0; j < tanks.size(); j++) {
-				bulletList.get(i).collideWith(tanks.get(j));
-			}
-		}
+		gameModel.paint(g);
 	}
 
 	Image offScreenImage = null;
@@ -148,22 +114,22 @@ public class TankFrame extends Frame {
 		 */
 		private void setMainTankDir() {
 			if (!bL && !bU && !bR && !bD) {
-				myTank.setMove(false);
+				gameModel.getMainTank().setMove(false);
 			} else {
-				myTank.setMove(true);
+				gameModel.getMainTank().setMove(true);
 			}
 
 			if (bL) {
-				myTank.setDir(Dir.LEFT);
+				gameModel.getMainTank().setDir(Dir.LEFT);
 			}
 			if (bU) {
-				myTank.setDir(Dir.UP);
+				gameModel.getMainTank().setDir(Dir.UP);
 			}
 			if (bR) {
-				myTank.setDir(Dir.RIGHT);
+				gameModel.getMainTank().setDir(Dir.RIGHT);
 			}
 			if (bD) {
-				myTank.setDir(Dir.DOWN);
+				gameModel.getMainTank().setDir(Dir.DOWN);
 			}
 
 		}
@@ -188,7 +154,7 @@ public class TankFrame extends Frame {
 				bD = false;
 				break;
 			case KeyEvent.VK_CONTROL:
-				myTank.fire();
+				gameModel.getMainTank().fire();
 				break;
 
 			default:

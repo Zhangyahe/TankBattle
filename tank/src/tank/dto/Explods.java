@@ -4,19 +4,19 @@ import java.awt.Graphics;
 
 import tank.common.Audio;
 import tank.common.ResourceLoding;
-import tank.frame.TankFrame;
+import tank.design.GameModel;
 
 public class Explods {
 	public static int WIDTH = ResourceLoding.explods[0].getWidth();
 	public static int HEIGHT = ResourceLoding.explods[0].getHeight();
 	private int X, Y;
-	private TankFrame tf = null;
 	private int step = 0;
+	private GameModel gm = null;
 
-	public Explods(int x, int y, TankFrame tf) {
+	public Explods(int x, int y, GameModel gm) {
 		X = x;
 		Y = y;
-		this.tf = tf;
+		this.gm = gm;
 		new Thread(()->new Audio("audio/explode.wav").play()).start();
 	}
 
@@ -28,7 +28,7 @@ public class Explods {
 	public void paint(Graphics g) {
 		g.drawImage(ResourceLoding.explods[step++], X, Y, null);
 		if (step >= ResourceLoding.explods.length) {
-			tf.explods.remove(this);
+			gm.explods.remove(this);
 		}
 	}
 
